@@ -25,3 +25,4 @@ pnpm-debug.log*
 *.sw?
 
 yarn.lock
+docs/.vuepress/dist/
