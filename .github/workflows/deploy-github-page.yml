@@ -32,8 +32,8 @@ jobs:
           npm run docs:build
           
     - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages # 部署到 gh-pages 分支
-          FOLDER: docs/.vuepress/dist # vuepress 生成的静态文件存放的地方
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages # 部署到 gh-pages 分支
+        FOLDER: docs/.vuepress/dist # vuepress 生成的静态文件存放的地方
