@@ -24,5 +24,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-docs/.vuepress/
 yarn.lock
