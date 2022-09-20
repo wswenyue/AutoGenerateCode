@@ -11,7 +11,7 @@ package com.wswenyue.plugin
  */
 object AGCConstant {
     const val keyAgcIndex = "agc"
-    const val keyFieldsIndex = "agc.fields"
+    const val keyStringFieldsIndex = "agc.string.fields"
     const val keyAgcOutDir = "outDir"
     const val keyAgcClsName = "className"
     const val keyAgcPackage = "package"

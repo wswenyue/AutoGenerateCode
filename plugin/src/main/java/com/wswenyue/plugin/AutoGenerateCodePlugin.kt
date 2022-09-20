@@ -1,45 +1,47 @@
 package com.wswenyue.plugin
 
+import com.android.build.gradle.tasks.GenerateBuildConfig
 import com.wswenyue.plugin.tasks.GenerateCodeTask
-import com.wswenyue.plugin.utils.CommUtils
-import com.wswenyue.plugin.utils.buildTask
-import com.wswenyue.plugin.utils.getEnvMapWarp
+import com.wswenyue.plugin.utils.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.compile.JavaCompile
 
 class AutoGenerateCodePlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        println("=============${target.name}===begin=============")
-        target.tasks.whenTaskAdded { theTask: Task ->
-            if (theTask is JavaCompile) {
-                if (theTask.name == "compileJava" && isNeedGenerate(target)) {
-                    println("JavaCompile==>${target.name}#${theTask.name}")
-                    val generateCodeTask = target.buildTask<GenerateCodeTask>(
-                        name = "GenerateCode",
-                        group = "easy"
-                    )
+    companion object {
+        const val TAG = "AutoGenerateCodePlugin"
+    }
 
+    override fun apply(target: Project) {
+        if (target.isApplication()) {
+            //Application
+            println("====Apply====${TAG}=====Application:${target.name}=============".green())
+
+            target.tasks.whenTaskAdded { theTask: Task ->
+                if (theTask is GenerateBuildConfig) {
+                    println("GenerateBuildConfig==>${target.name}#${theTask.name}")
+                    val generateCodeTask = target.buildTask<GenerateCodeTask>(
+                        name = "GenerateCode", group = "easy"
+                    )
                     theTask.dependsOn(generateCodeTask)
                 }
             }
-        }
-        println("=============${target.name}===end===============")
-    }
+        } else if (target.isLibrary() || target.isDynamicFeature()) {
+            //Library
+            println("====Apply====${TAG}=====Library(or DynamicFeature):${target.name}=============".green())
 
-    private fun isNeedGenerate(target: Project): Boolean {
-        target.getEnvMapWarp(AGCConstant.keyAgcIndex)?.let { cfg ->
-            val outDir = cfg[AGCConstant.keyAgcOutDir] as String?
-            val packageName = cfg[AGCConstant.keyAgcPackage] as String?
-            val clsName = cfg[AGCConstant.keyAgcClsName] as String?
-            if (CommUtils.isNotEmpty(outDir)
-                && CommUtils.isNotEmpty(packageName)
-                && CommUtils.isNotEmpty(clsName)
-            ) {
-                return true
+            target.tasks.whenTaskAdded { theTask: Task ->
+                if (theTask is JavaCompile && theTask.name == "compileJava") {
+                    println("JavaCompile==>${target.name}#${theTask.name}")
+                    val generateCodeTask = target.buildTask<GenerateCodeTask>(
+                        name = "GenerateCode", group = "easy"
+                    )
+                    theTask.dependsOn(generateCodeTask)
+                }
             }
+        } else {
+            println("unknown project type!!!".red())
         }
-        return false
     }
 }

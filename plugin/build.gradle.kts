@@ -12,22 +12,29 @@ java {
 }
 
 dependencies {
+    implementation("com.android.tools.build:gradle:7.3.0")
     implementation("com.squareup:javapoet:1.13.0")
 }
 
-val pluginGroup = "com.wswenyue"
-val pluginArtifactId = "AutoGenerateCodePlugin"
-val pluginVersion = "1.0.0"
+val pluginGroup = "vip.wswenyue"
+val pluginName = "AutoGenerateCodePlugin"
+val pluginGroupId = "vip.wswenyue.AutoGenerateCode"
+val pluginArtifactId = "${pluginGroupId}.gradle.plugin"
+val pluginVersion = "1.0.0-SNAPSHOT"
 val pluginDescription = "A gradle plugin that generates code automatically."
 val pluginWebSite = "https://wswenyue.github.io/AutoGenerateCode"
 val pluginVcsUrl = "https://github.com/wswenyue/AutoGenerateCode"
 
+group = "vip.wswenyue.plugins"
+version = pluginVersion
+description = pluginDescription
+
 // Use java-gradle-plugin to generate plugin descriptors and specify plugin ids
 gradlePlugin {
     plugins {
-        create(pluginArtifactId) {
-            id = "${pluginGroup}.${pluginArtifactId}"
-            displayName = pluginArtifactId
+        create(pluginName) {
+            id = pluginGroupId
+            displayName = pluginName
             description = pluginDescription
             implementationClass = "com.wswenyue.plugin.AutoGenerateCodePlugin"
         }
@@ -46,7 +53,7 @@ pluginBundle {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            groupId = pluginGroup
+            groupId = pluginGroupId
             artifactId = pluginArtifactId
             version = pluginVersion
             from(components["java"])
@@ -59,7 +66,7 @@ publishing {
                 }
             }
             pom {
-                name.set(pluginArtifactId)
+                name.set(pluginName)
                 description.set(pluginDescription)
                 url.set(pluginVcsUrl)
 //                properties.set(

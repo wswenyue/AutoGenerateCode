@@ -67,6 +67,8 @@ fun Project.localProp(onlyRoot: Boolean = false): Properties? {
 
 
 fun Project.isApplication(): Boolean = plugins.hasPlugin("com.android.application")
+fun Project.isDynamicFeature(): Boolean = plugins.hasPlugin("com.android.dynamic-feature")
+fun Project.isLibrary(): Boolean = plugins.hasPlugin("com.android.library")
 
 inline fun <reified T : DefaultTask> Project.buildTask(
     name: String = "",
