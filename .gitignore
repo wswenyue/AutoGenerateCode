@@ -20,3 +20,6 @@ buildSrc/build
 .externalNativeBuild
 .cxx
 
+/docs/.vuepress
+node_modules/
+
