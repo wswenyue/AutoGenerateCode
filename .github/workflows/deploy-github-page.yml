@@ -27,6 +27,6 @@ jobs:
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        token: ${{ secrets.ACCESS_TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         branch: gh-pages # 部署到 gh-pages 分支
         folder: docs/.vuepress/dist # vuepress 生成的静态文件存放的地方
