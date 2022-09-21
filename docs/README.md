@@ -9,7 +9,7 @@ Add the plugin section in your root project `build.gradle` file :
 
 ```gradle
 plugins {
-    id 'vip.wswenyue.AutoGenerateCode' version '1.0.0-SNAPSHOT' apply false
+    id 'vip.wswenyue.AutoGenerateCode' version '0.1.0' apply false
 }
 ```
 
