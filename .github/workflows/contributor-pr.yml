@@ -44,4 +44,4 @@ jobs:
         if: failure()
         with:
           name: app-debug.apk
-          path: app/build/outputs/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
