@@ -48,13 +48,16 @@ jobs:
       - name: Print Env
         run: |
           echo "plugin_version_suf: ${{ steps.my-env.outputs.plugin_version_suf }}"
+          echo "GRADLE_PUB_KEY: ${{ secrets.GRADLE_PUB_KEY }}"
+          echo "GRADLE_PUB_SECRET: ${{ secrets.GRADLE_PUB_SECRET }}"
 
       - name: Gradle Runner
         env:
           plugin_version_suf: ${{ steps.my-env.outputs.plugin_version_suf }}
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: Hello
+          arguments: plugin:publishPlugins -Pgradle.publish.key=${{ secrets.GRADLE_PUB_KEY }} -Pgradle.publish.secret=${{ secrets.GRADLE_PUB_SECRET }}
+#          ./gradlew
 
 #      - name: Execute Gradle build
 #        run: ./gradlew Hello

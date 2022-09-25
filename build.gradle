@@ -11,7 +11,8 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-task Hello() {
+task PublishRCPlugin() {
+
     println("===========1==========")
     println("1 ABC==>${System.getenv("plugin_version_suf")}")
     doFirst {

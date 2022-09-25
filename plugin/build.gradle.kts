@@ -20,7 +20,33 @@ val pluginGroup = "vip.wswenyue"
 val pluginName = "AutoGenerateCodePlugin"
 val pluginGroupId = "vip.wswenyue.AutoGenerateCode"
 val pluginArtifactId = "${pluginGroupId}.gradle.plugin"
-val pluginVersion = "0.1.0"
+
+fun isEmpty(str: String?): Boolean {
+    if (str == null) {
+        return true
+    }
+    return str.trim().isEmpty()
+}
+
+fun isNotEmpty(str: String?): Boolean {
+    return !isEmpty(str)
+}
+
+val pluginVersion: String by lazy {
+    val pubVersion = System.getenv("PublishVersion")
+    if (isNotEmpty(pubVersion)) {
+        pubVersion.toString()
+    } else {
+        val lastVersion = property("LastVersion")
+        val rcVersionSuf = System.getenv("plugin_version_suf")
+        if (isNotEmpty(rcVersionSuf)) {
+            "${lastVersion}${rcVersionSuf}"
+        } else {
+            lastVersion.toString()
+        }
+    }
+}
+
 val pluginDescription = "A gradle plugin that generates code automatically."
 val pluginWebSite = "https://wswenyue.github.io/AutoGenerateCode"
 val pluginVcsUrl = "https://github.com/wswenyue/AutoGenerateCode"
