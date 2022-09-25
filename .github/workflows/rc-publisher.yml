@@ -34,21 +34,26 @@ jobs:
           distribution: temurin
           java-version: 11
 
+      - name: Set selected color
+        run: echo '::set-output name=SELECTED_COLOR::green'
+        id: random-color-generator
+      - name: Get color
+        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+
       - name: Set Evn
+        id: my-env
         run: |
-          export GIT_PR_SHA="${{ github.sha }}"
-          export GIT_PR_SHA_SHORT="${GIT_PR_SHA:0:10}"
-#          export plugin_version_suf=`git rev-parse --short HEAD`
-        env:
-          plugin_version_suf: ${{ git rev-parse --short HEAD }}
+          echo ${{ format('::set-output name=GIT_PR_SHA::{0}', github.sha) }}
+          echo ${{ format('::set-output name=plugin_version_suf::{0}', `git rev-parse --short HEAD`) }}
 
       - name: Print Env
         run: |
-          echo "GIT_PR_SHA: ${GIT_PR_SHA}"
-          echo "GIT_PR_SHA_SHORT: ${GIT_PR_SHA_SHORT}"
-          echo "plugin_version_suf: ${env.plugin_version_suf}"
+          echo "GIT_PR_SHA: ${{ steps.my-env.outputs.GIT_PR_SHA }}"
+          echo "plugin_version_suf: ${{ steps.my-env.outputs.plugin_version_suf }}"
 
       - name: Setup Gradle
+        env:
+          plugin_version_suf: ${{ steps.my-env.outputs.plugin_version_suf }}
         uses: gradle/gradle-build-action@v2
 
       - name: Execute Gradle build
