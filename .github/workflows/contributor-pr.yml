@@ -49,12 +49,15 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: "app-debug.apk"
           path: app/build/outputs/apk/debug/app-debug.apk
 
       - uses: actions/upload-artifact@v3
         with:
+          name: "app-release.apk"
           path: app/build/outputs/apk/release/app-release-unsigned.apk
 
       - uses: actions/upload-artifact@v3
         with:
+          name: "kotlin-tooling-metadata.json"
           path: app/build/kotlinToolingMetadata/kotlin-tooling-metadata.json
