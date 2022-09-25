@@ -49,13 +49,15 @@ jobs:
         run: |
           echo "plugin_version_suf: ${{ steps.my-env.outputs.plugin_version_suf }}"
 
-      - name: Setup Gradle
+      - name: Gradle Runner
         env:
           plugin_version_suf: ${{ steps.my-env.outputs.plugin_version_suf }}
         uses: gradle/gradle-build-action@v2
+        with:
+          arguments: Hello
 
-      - name: Execute Gradle build
-        run: ./gradlew Hello
+#      - name: Execute Gradle build
+#        run: ./gradlew Hello
 
 #      - name: Test result
 #        run: |
