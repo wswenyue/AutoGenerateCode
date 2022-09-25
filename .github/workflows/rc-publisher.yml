@@ -38,13 +38,15 @@ jobs:
         run: |
           export GIT_PR_SHA="${{ github.sha }}"
           export GIT_PR_SHA_SHORT="${GIT_PR_SHA:0:10}"
-          export plugin_version_suf=`git rev-parse --short HEAD`
+#          export plugin_version_suf=`git rev-parse --short HEAD`
+        env:
+          plugin_version_suf: ${{ git rev-parse --short HEAD }}
 
       - name: Print Env
         run: |
           echo "GIT_PR_SHA: ${GIT_PR_SHA}"
           echo "GIT_PR_SHA_SHORT: ${GIT_PR_SHA_SHORT}"
-          echo "plugin_version_suf: ${plugin_version_suf}"
+          echo "plugin_version_suf: ${env.plugin_version_suf}"
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
