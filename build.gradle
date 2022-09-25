@@ -10,3 +10,19 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task Hello() {
+    println("===========1==========")
+    println("1 ABC==>${System.getenv("plugin_version_suf")}")
+    doFirst {
+        println("===========3============")
+        println("3 ABC==>${getProject().property("plugin_version_suf")}")
+        println("4 ABC==>${System.getenv("plugin_version_suf")}")
+    }
+    doLast {
+        println("===========4=============")
+//        println("4 ABC==>${getProject().("ABC")}")
+    }
+    println("============2==========")
+//    println("2 ABC==>${getProject().property("ABC")}")
+}
