@@ -19,7 +19,7 @@ env:
   #  GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
   # Enable debug for the `gradle-build-action` cache operations
   GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
-  plugin_version_suf: ${{ format('-rc-{0}', github.sha) }}
+#  plugin_version_suf: ${{ format('-rc-{0}', github.sha) }}
 
 jobs:
   build:
@@ -34,9 +34,19 @@ jobs:
           distribution: temurin
           java-version: 11
 
+      - name: Set Evn
+        run: |
+          export GIT_PR_SHA="${{ github.sha }}"
+          export GIT_PR_SHA_SHORT="${GIT_PR_SHA:0:10}"
+          export plugin_version_suf=`git rev-parse --short HEAD`
+
+      - name: Print Env
+        run: |
+          echo "GIT_PR_SHA: ${GIT_PR_SHA}"
+          echo "GIT_PR_SHA_SHORT: ${GIT_PR_SHA_SHORT}"
+          echo "plugin_version_suf: ${plugin_version_suf}"
+
       - name: Setup Gradle
-        env:
-          plugin_version_suf: ${env.plugin_version_suf}
         uses: gradle/gradle-build-action@v2
 
       - name: Execute Gradle build
