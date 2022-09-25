@@ -43,12 +43,10 @@ jobs:
       - name: Set Evn
         id: my-env
         run: |
-          echo "::set-output name=GIT_PR_SHA::${github.sha}"
           echo "::set-output name=plugin_version_suf::-rc-`git rev-parse --short HEAD`"
 
       - name: Print Env
         run: |
-          echo "GIT_PR_SHA: ${{ steps.my-env.outputs.GIT_PR_SHA }}"
           echo "plugin_version_suf: ${{ steps.my-env.outputs.plugin_version_suf }}"
 
       - name: Setup Gradle
