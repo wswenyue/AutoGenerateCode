@@ -44,7 +44,8 @@ jobs:
         id: my-env
         run: |
           echo ${{ format('::set-output name=GIT_PR_SHA::{0}', github.sha) }}
-          echo ${{ format('::set-output name=plugin_version_suf::{0}', `git rev-parse --short HEAD`) }}
+          vv=`git rev-parse --short HEAD`
+          echo ${{ format('::set-output name=plugin_version_suf::{0}', vv) }}
 
       - name: Print Env
         run: |
