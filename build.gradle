@@ -16,7 +16,7 @@ task Hello() {
     println("1 ABC==>${System.getenv("plugin_version_suf")}")
     doFirst {
         println("===========3============")
-//        println("3 ABC==>${getProject().property("plugin_version_suf")}")
+        println("3 ABC==>${getProject().property("plugin_version_suf")}")
         println("4 ABC==>${System.getenv("plugin_version_suf")}")
     }
     doLast {
