@@ -20,7 +20,8 @@ jobs:
 
       - name: Run cmd Test
         run: |
-          /usr/bin/git rev-list --tags --skip=0 --max-count=1
+          echo `/usr/bin/git rev-list --tags --skip=0 --max-count=1`
+          echo `/usr/bin/git describe --abbrev=0 --tags`
 
       - name: Generate list using Markdown
         run: |
