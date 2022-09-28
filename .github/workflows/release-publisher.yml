@@ -14,10 +14,13 @@ on:
 jobs:
   Note-Publish:
     runs-on: ubuntu-latest
-    permissions: read-all
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
+
+      - name: Run cmd Test
+        run: |
+          /usr/bin/git rev-list --tags --skip=0 --max-count=1
 
       - name: Generate list using Markdown
         run: |
