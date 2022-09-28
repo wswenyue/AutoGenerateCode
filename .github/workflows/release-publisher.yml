@@ -15,6 +15,9 @@ jobs:
   Note-Publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Generate list using Markdown
         run: |
           echo "### Hello world! :rocket:" >> $GITHUB_STEP_SUMMARY
@@ -23,9 +26,10 @@ jobs:
           echo "- Lets add a bullet point" >> $GITHUB_STEP_SUMMARY
           echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
           echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
+
       - name: "Build Changelog"
         id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@{latest-release}
+        uses: mikepenz/release-changelog-builder-action@v3
         with:
           configurationJson: |
             {
@@ -55,6 +59,7 @@ jobs:
             }
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
       - name: Echo Configuration without Checkout Changelog
         env:
           CHANGELOG: ${{ steps.build_changelog.outputs.changelog }}
@@ -65,7 +70,7 @@ jobs:
           echo "CHANGELOG" >> $GITHUB_STEP_SUMMARY # changelog
 
       - name: Create Release
-        uses: softprops/action-gh-release@6034af24fba4e5a8e975aaa6056554efe4c794d0
+        uses: softprops/action-gh-release@v0.1.14
         with:
           body: ${{steps.build_changelog.outputs.changelog}}
         #          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
