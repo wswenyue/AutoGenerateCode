@@ -14,7 +14,7 @@ on:
 jobs:
   Note-Publish:
     runs-on: ubuntu-latest
-    permissions: read-all|write-all
+    permissions: read-all
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
