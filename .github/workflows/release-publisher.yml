@@ -38,7 +38,7 @@ jobs:
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v3.3.0
         with:
-          configuration: "change-log-config.json"
+          configuration: ".github/config/change-log-config.json"
           owner: "wswenyue"
           ignorePreReleases: "false"
         env:
