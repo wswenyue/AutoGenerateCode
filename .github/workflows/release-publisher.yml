@@ -2,10 +2,10 @@ name: Release Publish
 
 on:
   push:
-    tags:
-      - 'v*'
-    #    branches:
-    #      - workflow-test
+    #    tags:
+    #      - 'v*'
+    branches:
+      - workflow-test
 #  pull_request:
 #    branches:
 #      - workflow-test
@@ -54,11 +54,11 @@ jobs:
           echo "### ChangeLog! :rocket:" >> $GITHUB_STEP_SUMMARY
           echo ${{ steps.build_changelog.outputs.changelog }} >> $GITHUB_STEP_SUMMARY # changelog
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v0.1.14
-        with:
-          body: ${{steps.build_changelog.outputs.changelog}}
-        #          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+#      - name: Create Release
+#        uses: softprops/action-gh-release@v0.1.14
+#        with:
+#          body: ${{steps.build_changelog.outputs.changelog}}
+#        #          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
